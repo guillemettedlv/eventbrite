@@ -1,0 +1,33 @@
+
+<!-- Jumbotron -->
+<div class="jumbotron text-center">
+	<h1 class="display-5">Tous les évenements autour de chez toi</h1>
+
+	<hr class="my-4 col-8">
+	<p>Eventbrite-thp recense l'ensemble des évenements de ta ville, crées-en un à ton tour !</p>
+	<%= link_to "Créer un evenement", new_event_path, class:"btn btn-primary" %>
+</div>
+
+<div class="album py-5 bg-light"> 
+<div class="container"> 
+	<div class="row"> 
+		<h4 class="font-weight-bold">Evenements populaires</h4>
+	</div>
+	<div class="row justify-content-between">
+      <% @all_events.reverse.each do |event| %>
+      <div class="card col-12 mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= event.title %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= event.title %></h6>
+          <h6 class="card-subtitle mb-2 text-muted"><%= "Organisé par: #{event.organizer.email}" %></h6>
+          <p class="card-text"><%= event.price %> €</p>
+          <%= link_to "En savoir +",  event_path(event.id), class:"btn btn-sm btn-outline-secondary" %>
+        </div>
+      </div>
+      <% end %>
+	</div>
+</div>
+</div>
+
+
+

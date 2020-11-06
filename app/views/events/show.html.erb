@@ -1,0 +1,64 @@
+<div class="container">
+	<div class="row text-center justify-content-center mt-3">
+		<!-- Event title -->
+		<h3 class="col-12"><%="#{@event.title}" %></h3>
+
+
+		<!-- Description -->
+		<p class="col-12">
+			<small class="text-muted">Description</small><br/>
+			<%= @event.description %>
+		</p>
+
+		<!-- Number of attendees -->
+		<p class="col-12">
+			<small class="text-muted">Number of attendees</small><br/>
+			<%= @event.users.count %>
+		</p>
+		
+		<!-- Organizer email -->
+		<p class="col-12">
+			<small class="text-muted">Organizer</small><br/>
+			<%= @event.organizer.email %>
+		</p>
+		
+		<!-- Start date -->
+		<p class="col-12">
+			<small class="text-muted">Start date</small><br/>
+			<%= @event.start_date %>
+		</p>
+
+		<!-- End date calculated with a method in the event model -->
+		<p class="col-12">
+			<small class="text-muted">End date</small><br/>
+			<%= @event.end_date %>
+		</p>
+		
+		<!-- Event location -->
+		<p class="col-12">
+			<small class="text-muted">Location</small><br/>
+			<%= @event.location %>
+		</p>
+
+		<!-- Event price -->
+		<p class="col-12">
+			<small class="text-muted">Price</small><br/>
+			<%= "#{@event.price} €" %>
+    </p>
+
+    <% if current_user %> 
+			<!-- If the current user is not the organizer and isn't attending the event, he can join it -->
+			<% if current_user != @event.organizer && !@event.is_user_attending?(current_user) %>
+					<%= link_to "Participer et payer", new_charge_path(id: @event.id), class:"btn btn-primary" %>
+      <% end %>
+    <% end %>
+
+    <% if current_user %> 
+    <!-- If the current user is not the organizer and isn't attending the event, he can join it -->
+    <% if current_user == @event.organizer %>
+        <%= link_to "Mon espace évenements", attendances_path(id: @event.id), class:"btn btn-primary" %>
+    <% end %>
+  <% end %>
+      
+  </div>
+</div>

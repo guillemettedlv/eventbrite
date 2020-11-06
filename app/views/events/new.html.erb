@@ -1,0 +1,33 @@
+<h3 class="card-title text-center m-4">Créer un evenement</h3>
+
+
+<div class="container col-6">
+
+<%= form_tag events_path do %>
+
+	<%= label_tag 'Titre' %>
+	<%= text_field_tag 'title', @event.title, placeholder: "Titre de l'evenement", class: "form-control mb-3" %>
+
+	<%= label_tag 'Date de début' %>
+	<%= text_field_tag 'start_date', @event.start_date, placeholder: "Exemple: 2020/12/12 12:00:00", class: "form-control mb-4" %>
+
+	<%= label_tag 'Durée' %>
+	<%= text_field_tag 'duration', @event.duration, placeholder: "Durée de l'evenement (multiple de 5)", class: "form-control mb-4" %>
+
+	<%= label_tag 'Description' %>
+	<%= text_area_tag 'description', @event.description, placeholder: "Description de l'evenement (artistes, thèmes etc...)", class: "form-control mb-4" %>
+
+	<%= label_tag 'Prix' %>
+	<%= text_field_tag 'price', @event.price, placeholder: "Prix", class: "form-control mb-4" %>
+
+	<%= label_tag 'Lieu' %>
+	<%= text_field_tag 'location', @event.location, placeholder: "Addresse du lieu", class: "form-control mb-4" %>
+
+	<br/><br/>
+
+
+	<%= submit_tag "Creer un evenement", class: "btn btn-primary" %>
+
+	<% end %>
+
+</div>
