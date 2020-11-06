@@ -16,4 +16,6 @@ module AssetEventbrite
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
   end
+  # config/application.rb
+config.assets.initialize_on_precompile = false
 end
