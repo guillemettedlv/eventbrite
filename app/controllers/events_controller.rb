@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :is_organizer, only: [:update, :destroy, :edit]
-
   
   def index
     @all_events = Event.all
@@ -24,12 +23,12 @@ class EventsController < ApplicationController
     price: params[:price],
     location: params[:location]		
     )
+    @event.avatar.attach(params[:avatar])
+
     if @event.save
 			flash[:success] = "Event successfully added! 👍"
-			#Show events index
 			redirect_to events_path 
 		else
-    	# Keeps on the new event view
     	render 'new' 
     end
   end
@@ -59,16 +58,28 @@ class EventsController < ApplicationController
   def destroy
   	@event = Event.find(params[:id])
   	@event.destroy
-  	flash[:alert] = "Event deleted!"
-  	redirect_to event_path
+  	flash[:alert] = "Evenement supprimé!"
+  	redirect_to root_path
   end
+
+
+
 
   def is_organizer
   	@event = Event.find(params[:id])
+  	puts "*"*1000
   	if current_user != @event.organizer && current_user.is_admin == false
-  		flash[:error] = "You shall not pass!!!"
+  		flash[:error] = "Impossible"
   		redirect_to event_path
   	end
+  end
+
+  def is_validated
+    @event = Event.find(params[:id])
+    if @event.is_validated != false && current_user.is_admin == false
+      flash[:error] = "L'evenement n'est pas sauvegardé"
+      redirect_to root_path
+    end
   end
 
 end

@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h2">Users</h1>
+	<div class="btn-toolbar mb-2 mb-md-0"></div>
+</div>
+
+
+<% @event.reverse.each do |event| %>
+<%=	event.title %><br>
+<%=	event.organizer.email %><br>
+<% if event.is_validated == true %>
+	<small class="text-success">Validated</small>
+	<% elsif event.is_validated == false %>
+	<small class="text-danger">Rejected</small>
+	<% else %>
+	<small class="text-muted">Not reviewed yet</small>
+	<% end %>
+<br><br>
+<%= link_to "Modifier l'evenement",  edit_admin_event_path(event.id), class:"btn-primary btn-sm" %> <br> <br>
+
+<% end %>

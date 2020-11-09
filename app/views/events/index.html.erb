@@ -21,7 +21,7 @@
           <h6 class="card-subtitle mb-2 text-muted"><%= event.title %></h6>
           <h6 class="card-subtitle mb-2 text-muted"><%= "Organisé par: #{event.organizer.email}" %></h6>
           <p class="card-text"><%= event.price %> €</p>
-          <%= link_to "En savoir +",  event_path(event.id), class:"btn btn-sm btn-outline-secondary" %>
+          <%= link_to "En savoir +", event_path(event.id), class:"btn btn-sm btn-outline-secondary" %>
         </div>
       </div>
       <% end %>

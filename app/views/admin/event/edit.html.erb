@@ -1,0 +1,71 @@
+<!-- Page title-->
+<h3 class="card-title text-center m-4">Edit event</h3>
+
+<!-- Form zone-->
+<div class="container col-6">
+
+	<!-- Form to add a picture  -->
+	<%= form_tag event_avatars_path(@event), multipart: true do %>
+	<%= file_field_tag :avatars %>
+	<%= submit_tag "Add picture"%>
+	<% end %>
+	<br/>
+
+	<p>Photo de l'évènement</p>
+	<%if @event.eventpicture.attached?%>
+	<%= image_tag @event.eventpicture, alt: 'event picture' %>
+	<%else%>
+	<p>=== Il n'y a pas encore de photo d'évènement ===</p>
+	<%end%>
+
+	<!-- Form to edit an event  -->
+	<%= form_tag url_for(action: 'update'), method: "patch" do %>
+
+	<%= label_tag 'Title' %>
+	<%= text_field_tag 'title', @event.title, class: "form-control mb-3" %>
+
+	<%= label_tag 'Start date' %>
+	<%= text_field_tag 'start_date', @event.start_date, class: "form-control mb-4" %>
+
+	<%= label_tag 'Duration' %>
+	<%= text_field_tag 'duration', @event.duration, class: "form-control mb-4" %>
+
+	<%= label_tag 'Description' %>
+	<%= text_area_tag 'description', @event.description, class: "form-control mb-4" %>
+
+	<%= label_tag 'Price' %>
+	<%= text_field_tag 'price', @event.price, class: "form-control mb-4" %>
+
+	<%= label_tag 'Location' %>
+	<%= text_field_tag 'location', @event.location, class: "form-control mb-4" %>
+
+	<h4>Is event validated ?</h4>
+	<%= radio_button_tag(:is_validated, "true") %>
+	<%= label_tag(:is_validated_yes, "Yes") %>
+	<%= radio_button_tag(:is_validated, "false") %>
+	<%= label_tag(:is_validated_no, "No") %> <br/>
+
+	<%= submit_tag "Edit event", class: "btn btn-primary mt-3" %>
+
+	<% end %>
+
+
+	<%= link_to "Delete Event", event_path, data: {confirm: "Are you sure?"}, method: "delete", class: "btn btn-danger mb-0 my-3" %>
+
+	<!-- Showing possible events -->
+	<% if @event.errors.any? %>
+
+	<div class="alert alert-danger alert-dismissible fade show m-4" role="alert">
+		<p><strong>We couldn't edit the event for the following reasons :</strong></p>
+		<ul>
+			<% @event.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<% end %>
+		</ul>
+	</div>
+
+	<% end %>
+</div>

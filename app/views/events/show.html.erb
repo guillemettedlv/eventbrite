@@ -1,8 +1,14 @@
 <div class="container">
-	<div class="row text-center justify-content-center mt-3">
+  <div class="row text-center justify-content-center mt-3">
+  
 		<!-- Event title -->
-		<h3 class="col-12"><%="#{@event.title}" %></h3>
+    <h3 class="col-12"><%="#{@event.title}" %></h3>
 
+    <%if @event.avatar.attached?%>
+    <%= image_tag @event.avatar, alt: 'Photo evenement', class:'my-3'%>
+    <%else%>
+    <p>=== Il n'y a pas encore de photo liée à cet utilisateur ===</p>
+    <%end%>
 
 		<!-- Description -->
 		<p class="col-12">
@@ -46,19 +52,22 @@
 			<%= "#{@event.price} €" %>
     </p>
 
-    <% if current_user %> 
-			<!-- If the current user is not the organizer and isn't attending the event, he can join it -->
-			<% if current_user != @event.organizer && !@event.is_user_attending?(current_user) %>
-					<%= link_to "Participer et payer", new_charge_path(id: @event.id), class:"btn btn-primary" %>
-      <% end %>
-    <% end %>
 
-    <% if current_user %> 
-    <!-- If the current user is not the organizer and isn't attending the event, he can join it -->
-    <% if current_user == @event.organizer %>
-        <%= link_to "Mon espace évenements", attendances_path(id: @event.id), class:"btn btn-primary" %>
-    <% end %>
-  <% end %>
+		<% if current_user %> <!-- If we have a current user -->
+			<% if current_user != @event.organizer && !@event.is_user_attending?(current_user) %>
+				<% if @event.price == 0 %>
+						<%= button_to 'Participer', create_attendance_path(id: @event.id), class:"btn btn-success" %>
+				<% else %>
+					<%= link_to "Participer & payer", new_charge_path(id: @event.id), class:"btn btn-primary" %>
+				<% end %>
+      <% end %>
+      
+			<% if current_user == @event.organizer %>
+				<%= link_to "Détails de l'evenement", attendances_path(id: @event.id), class:"btn btn-primary" %>
+			<% end %>
+			<% else %>
+				<%= link_to "Log in to join", new_user_session_path, class:"btn btn-primary" %>		
+		<% end %>
       
   </div>
 </div>
