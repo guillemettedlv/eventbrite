@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @organizer.first_name %>, <%= @user.first_name %> <%= @user.last_name %> participe à <%= @event.title %> !
+</h1>
+    <p>
+      Un petit résumé de ce qui va se passer : <br/>
+      <%= @event.description %>
+    </p>
+    <p>
+      Pour accéder à ton espace, connecte-toi via : <%= @url %>.
+    </p>
+    <p> À très vite sur Eventbrite!
+  </body>
+</html>
